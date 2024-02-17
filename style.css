@@ -1,0 +1,298 @@
+@import url('https://fonts.googleapis.com/css2?family=Aboreto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body{
+    font-family: Poppins;
+    font-size: 16px;
+    margin: 0;
+    background-color: #F7F2E2;
+}
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+:root{
+    --border-color: #fff5;
+    --width-image: 500px;
+    --calculate: calc(3 / 2);
+}
+header{
+    display: grid;
+    grid-template-columns: 80px 1fr calc(var(--width-image) * var(--calculate)) ;
+    grid-template-rows: 80px;
+    position: relative;
+    z-index: 10;
+    border-bottom: 1px solid var(--border-color);
+
+}
+header .logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+header .logo img{
+    width: 80%;
+}
+header .main-nav ul{
+    list-style: none;
+    display: flex;
+    justify-content: end;
+    height: 100%;
+    align-items: center;
+    gap: 30px;
+    padding-right: 30px;
+    border-left: 1px solid var(--border-color);
+}
+header .main-nav ul a{
+    color: #000;
+    font-weight: 400;
+}
+
+.carousel{
+    margin-top: -80px;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+.list{
+    position: relative;
+    height: 100%;
+}
+.list::before{
+    position: absolute;
+    left: calc(100% - calc(var(--width-image) * var(--calculate)) );
+    top: 0;
+    width: 500px;
+    height: 100%;
+    content: '';
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    z-index: 10;
+    pointer-events: none;
+}
+
+.list::after{
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 400px;
+    height: 300px;
+    background-color: red;
+    content: '';
+    border-radius: 20px 50px 110px 230px;
+    filter: blur(150px);
+    z-index: 10;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.item{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.carousel .image{
+    width: var(--width-image);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: calc(100% - calc(var(--width-image) * var(--calculate)));
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    font-weight: 500;
+}
+.item .image img{
+    width: 90%;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 150px 50px #9e0c0c55);
+}
+.item .image figcaption{
+    font-family: 'Aboreto';
+    font-weight: bold;
+    font-size: 1.3em;
+    text-align: right;
+    margin-bottom: 30px;
+    width: 70%;
+}
+.item .main-content{
+    background-color: var(--bg-color);
+    height: 100%;
+    display: grid;
+    grid-template-columns: calc(100% - calc(var(--width-image) * var(--calculate)));
+}
+
+.item .main-content .content{
+    padding: 20px 20px 20px 80px;
+    padding-top: 150px;
+
+}
+.item .main-content .content h2{
+    font-family: 'Aboreto';
+    font-size: 5em;
+}
+.item .main-content .content .price{
+    font-family: 'Aboreto';
+    font-size: 3em;
+    margin: 20px 0;
+}
+.item .main-content .content .addToCart{
+    background-color: #4F8B69;
+    color: #fff;
+    padding: 10px 30px;
+    font-family: Poppins;
+    font-size: large;
+    border: none;
+    margin-top: 20px;
+    border-radius: 30px;
+    font-weight: 500;
+}
+
+.arrows{
+    position: absolute;
+    bottom: 20px;
+    width: calc(100% - calc(var(--width-image) * var(--calculate)) - 20px);
+    display: grid;
+    grid-template-columns: repeat(2, 50px);
+    grid-template-rows: 50px;
+    justify-content: end;
+    gap: 10px;
+    z-index: 100;
+}
+.arrows button{
+    font-size: 2em;
+    font-weight: bold;
+    border: none;
+    background-color: transparent;
+    color: #eee;
+    transition: 0.5s;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    font-family: monospace;
+    line-height: 0;
+    box-shadow: 0 10px 10px #5553;
+
+}
+.arrows button:hover{
+    background-color: var(--border-color);
+}
+
+.item{
+    display: none;
+}
+.item.active, .item.other_1, .item.other_2{
+    display: block;
+}
+.item.active{
+    z-index: 2;
+}
+.item.other_1 .main-content,
+.item.other_2 .main-content{
+    pointer-events: none;
+}
+/* next */
+.item.active .main-content{
+    animation: showContent 1s  ease-in-out 1 forwards;
+} 
+@keyframes showContent{
+    from{
+        clip-path: circle(0% at 70% 50%);
+    }to{
+        clip-path: circle(100% at 70% 50%);
+    }
+}
+
+
+.next .item.other_1{
+    z-index: 1;
+}
+
+.next .item .image img, 
+.next .item .image figcaption{
+    animation: fromRightToLeft 0.5s ease-in-out 1 forwards
+}
+.next .item.other_2 .image{
+    z-index: 3;
+    --transform-from: calc(var(--width-image) * 2);
+}
+
+@keyframes fromRightToLeft{
+    from{
+        transform: translateX(var(--transform-from));
+    }to{
+        transform: translateX(calc(var(--transform-from) - var(--width-image)));
+    }
+}
+
+.next .item.active .image{
+    --transform-from: var(--width-image);
+}
+.next .item.other_1 .image{
+    z-index: 3;
+    overflow: hidden;
+    --transform-from: 0px;
+}
+/* prev */
+.prev .item .image img,
+.prev .item .image figcaption{
+    animation: fromLeftToRight 0.5s ease-in-out 1 forwards
+}
+@keyframes fromLeftToRight{
+    from{
+        transform: translateX(var(--transform-from));
+    }to{
+        transform: translateX(calc(var(--transform-from) + var(--width-image)));
+    }
+}
+.prev .item.active .image{
+    --transform-from: calc(var(--width-image) * -1);
+    overflow: hidden;
+}
+.prev .item.other_1 .image{
+    --transform-from: 0px;
+    z-index: 10;
+}
+.prev .item.other_2 .image{
+    z-index: 10;
+    --transform-from: var(--width-image);
+}
+.prev .item.other_2 .main-content{
+    opacity: 0;
+}
+
+@media screen and (max-width: 1023px){
+    :root{
+        --calculate: 1;
+        --width-image: 400px;
+    }
+    .item .main-content .content h2{
+        font-size: 3em;
+    }
+}
+@media screen and (max-width: 767px){
+    .carousel .image{
+        width: 100%;
+        left: 0;
+        justify-content: center;
+    }
+    .carousel .image figcaption{
+        color: #fff;
+        width: 100%;
+        text-align: center;
+    }
+    .carousel .main-content .content{
+        display: none;
+    }
+    .arrows{
+        left: 50%;
+        justify-content: center;
+    }
+}
